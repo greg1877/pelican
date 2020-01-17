@@ -466,8 +466,10 @@ def listen(server, port, output, excqueue=None):
             excqueue.put(traceback.format_exception_only(type(e), e)[-1])
         return
 
-    logging.info("Serving at port %s, server %s.", port, server)
+    serve_msg = "Serving site at: {}:{}".format(server, port)
+    logging.info(serve_msg)
     try:
+        print("{} - Tap CTRL-C to stop".format(serve_msg))
         httpd.serve_forever()
     except Exception as e:
         if excqueue is not None:
